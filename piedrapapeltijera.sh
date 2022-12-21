@@ -4,6 +4,10 @@ PIEDRA=1
 PAPEL=2
 TIJERA=3
 
+USUARIO=0
+MAQUINA=0
+
+
 eleccion_usuario(){
 	echo "Elige entre las siguiente opciones:"
 	echo "1. Piedra"
@@ -13,6 +17,16 @@ eleccion_usuario(){
 
 	if [[ ${eleccion} -eq 0 ]];then
 		echo -e "\nEspero que te haya gustado"
+		echo "PUNTUACIONES:"
+		echo "Maquina: $MAQUINA"
+		echo "Usuario: $USUARIO"
+		if [[ $MAQUINA -gt $USUARIO ]];then
+			echo "Lo siento, has perdido"
+		elif [[ $MAQUINA -eq $USUARIO ]];then
+			echo "EMPATE!"
+		else
+			echo "Enhorabuena! Has ganado!!"
+		fi
 		echo "Hasta luego!!"
 		exit 0
 	elif [[ ${eleccion} -gt 3 ]];then
@@ -38,10 +52,12 @@ comprobacion_ganador(){
 					;;
 				2)	echo "El usuario ha elegido Papel"
 					echo "Has ganado, papel envuelve a piedra"
+					USUARIO=$(($USUARIO + 1))
 					;;
 				3)
 					echo "El usuario ha elegido Tijera"
 					echo "Has perdido, la piedra machaca las tijeras"
+					MAQUINA=$(($MAQUINA+ 1))
 					;;
 			esac
 			;;
@@ -50,6 +66,7 @@ comprobacion_ganador(){
 			case $eleccion in
 				1)	echo "El usuario ha elegido Piedra"	
 					echo "Has perdido, papel envuelve a piedra"
+					MAQUINA=$(($MAQUINA+ 1))
 					;;
 				2)	echo "El usuario ha elegido Papel"
 					echo "Empate, ambos habéis elegido papel"
@@ -57,6 +74,7 @@ comprobacion_ganador(){
 				3)
 					echo "El usuario ha elegido Tijera"
 					echo "Has ganado, las tijeras cortan al papel"
+					USUARIO=$(($USUARIO + 1))
 					;;
 			esac
 			;;
@@ -65,9 +83,11 @@ comprobacion_ganador(){
 			case $eleccion in
 				1)	echo "El usuario ha elegido Piedra"	
 					echo "Has ganado, la piedra machaca las tijeras"
+					USUARIO=$(($USUARIO + 1))
 					;;
 				2)	echo "El usuario ha elegido Papel"
 					echo "Has perdido, las tijeras cortan al papel"
+					MAQUINA=$(($MAQUINA+ 1))
 					;;
 				3)
 					echo "El usuario ha elegido Tijera"
