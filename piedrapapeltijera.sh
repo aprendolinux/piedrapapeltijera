@@ -24,10 +24,15 @@ eleccion_usuario(){
 			echo "Lo siento, has perdido"
 		elif [[ $MAQUINA -eq $USUARIO ]];then
 			echo "EMPATE!"
+			read -p "Quieres echar una partida mas?[y/n]" -n 1 seguir
+			if [[ $seguir == "y" ]];then
+				echo "Vamos allá!"
+				eleccion_usuario
+			fi
 		else
 			echo "Enhorabuena! Has ganado!!"
 		fi
-		echo "Hasta luego!!"
+		echo -e "\nHasta luego!!"
 		exit 0
 	elif [[ ${eleccion} -gt 3 ]];then
 		echo -e "\nERROR EN DATO INTRODUCIDO"
