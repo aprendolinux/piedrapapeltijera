@@ -80,6 +80,8 @@ comprobacion_ganador(){
 
 	esac
 	echo ""
+	echo "Otra partida!"
+	eleccion_usuario
 }
 
 eleccion_usuario
