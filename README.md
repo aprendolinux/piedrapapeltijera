@@ -22,6 +22,7 @@ Como puedes encontrar en la Wikipedia: https://es.wikipedia.org/wiki/Piedra,_pap
 Puedes decargar el código, copiarlo o clonar el repositorio y dentro del directorio tan solo dale permisos de ejecución y lánzalo:
 
 > chmod +x piedrapapeltijera.sh
+
 > ./piedrapapeltijera.sh
 
 ## Modifícalo a tu gusto
