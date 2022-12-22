@@ -10,27 +10,29 @@ MAQUINA=0
 
 eleccion_usuario(){
 	echo "Elige entre las siguiente opciones:"
-	echo "1. Piedra"
-	echo "2. Papel"
-	echo "3. Tijera"
+	echo -e "\t1. Piedra"
+	echo -e "\t2. Papel"
+	echo -e "\t3. Tijera"
 	read -p "Introduce tu eleccion (0 para salir): " -n 1 eleccion
+	echo ""
 
 	if [[ ${eleccion} -eq 0 ]];then
-		echo -e "\n\nEspero que te haya gustado"
+		echo -e "\nEspero que te haya gustado"
 		echo "PUNTUACIONES:"
-		echo "Maquina: $MAQUINA"
-		echo "Usuario: $USUARIO"
+		echo -e "\tMaquina: $MAQUINA"
+		echo -e "\tUsuario: $USUARIO"
 		if [[ $MAQUINA -gt $USUARIO ]];then
 			echo "Lo siento, has perdido"
 		elif [[ $MAQUINA -eq $USUARIO ]];then
 			echo "EMPATE!"
-			read -p "Quieres echar una partida mas?[y/n]" -n 1 seguir
+			echo ""
+			read -p "Quieres echar una partida de desempate?[y/n]: " -n 1 seguir
 			if [[ $seguir == "y" ]];then
-				echo "Vamos allá!"
+				echo -e "\n¡Vamos allá!\n"
 				eleccion_usuario
 			fi
 		else
-			echo "Enhorabuena! Has ganado!!"
+			echo "¡¡Enhorabuena!! ¡Has ganado!!"
 		fi
 		echo -e "\nHasta luego!!"
 		exit 0
@@ -46,7 +48,8 @@ eleccion_usuario(){
 
 comprobacion_ganador(){
 	eleccion_maquina=$RANDOM%3
-	eleccion_maquina=$(( $eleccion_maquina + 1 ))
+	#eleccion_maquina=$(( $eleccion_maquina++ ))
+	((eleccion_maquina++))
 	#echo -e "\nLa maquina elige: " $eleccion_maquina
 	case $eleccion_maquina in
 		$PIEDRA)
