@@ -49,52 +49,55 @@ comprobacion_ganador(){
 	eleccion_maquina=$(( $eleccion_maquina + 1 ))
 	#echo -e "\nLa maquina elige: " $eleccion_maquina
 	case $eleccion_maquina in
-		1)
+		$PIEDRA)
 			echo -e "\nLa maquina elige Piedra"	
 			case $eleccion in
-				1)	echo "El usuario ha elegido Piedra"	
+				$PIEDRA) 
+					echo "El usuario ha elegido Piedra"	
 					echo "Empate, ambos habéis elegido piedra"
 					;;
-				2)	echo "El usuario ha elegido Papel"
+				$PAPEL)	echo "El usuario ha elegido Papel"
 					echo "Has ganado, papel envuelve a piedra"
 					USUARIO=$(($USUARIO + 1))
 					;;
-				3)
+				$TIJERA)
 					echo "El usuario ha elegido Tijera"
 					echo "Has perdido, la piedra machaca las tijeras"
 					MAQUINA=$(($MAQUINA+ 1))
 					;;
 			esac
 			;;
-		2)
+		$PAPEL)
 			echo -e "\nLa maquina elige Papel"	
 			case $eleccion in
-				1)	echo "El usuario ha elegido Piedra"	
+				$PIEDRA)
+					echo "El usuario ha elegido Piedra"	
 					echo "Has perdido, papel envuelve a piedra"
 					MAQUINA=$(($MAQUINA+ 1))
 					;;
-				2)	echo "El usuario ha elegido Papel"
+				$PAPEL)	echo "El usuario ha elegido Papel"
 					echo "Empate, ambos habéis elegido papel"
 					;;
-				3)
+				$TIJERA)
 					echo "El usuario ha elegido Tijera"
 					echo "Has ganado, las tijeras cortan al papel"
 					USUARIO=$(($USUARIO + 1))
 					;;
 			esac
 			;;
-		3)
+		$TIJERA)
 			echo -e "\nLa maquina elige Tijera"	
 			case $eleccion in
-				1)	echo "El usuario ha elegido Piedra"	
+				$PIEDRA)
+					echo "El usuario ha elegido Piedra"	
 					echo "Has ganado, la piedra machaca las tijeras"
 					USUARIO=$(($USUARIO + 1))
 					;;
-				2)	echo "El usuario ha elegido Papel"
+				$PAPEL)	echo "El usuario ha elegido Papel"
 					echo "Has perdido, las tijeras cortan al papel"
 					MAQUINA=$(($MAQUINA+ 1))
 					;;
-				3)
+				$TIJERA)
 					echo "El usuario ha elegido Tijera"
 					echo "Empate, ambos habéis elegido tijeras"
 					;;
