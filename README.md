@@ -1,4 +1,5 @@
-# piedrapapeltijera
+# Juego Piedra, Papel, Tijera (Rock, Paper, Scissors) en BASH
+
 El famoso juego de Piedra, Papel, Tijera hecho script de shell.
 
 Este juego lo hemos creado en directo durante el webinar sobre Shell Scripting 
@@ -15,6 +16,13 @@ Como puedes encontrar en la Wikipedia: https://es.wikipedia.org/wiki/Piedra,_pap
 2. Creación del esqueleto o esquema inicial
 3. Desarrollo de funciones
 4. Mejoras y añadidos
+
+## Juega directamente
+
+Puedes decargar el código, copiarlo o clonar el repositorio y dentro del directorio tan solo dale permisos de ejecución y lánzalo:
+
+> chmod +x piedrapapeltijera.sh
+> ./piedrapapeltijera.sh
 
 ## Modifícalo a tu gusto
 
