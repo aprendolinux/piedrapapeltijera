@@ -47,7 +47,7 @@ eleccion_usuario(){
 }
 
 comprobacion_ganador(){
-	eleccion_maquina=$RANDOM%3
+	eleccion_maquina=$(($RANDOM%3))
 	#eleccion_maquina=$(( $eleccion_maquina++ ))
 	((eleccion_maquina++))
 	#echo -e "\nLa maquina elige: " $eleccion_maquina
