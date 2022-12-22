@@ -16,7 +16,7 @@ eleccion_usuario(){
 	read -p "Introduce tu eleccion (0 para salir): " -n 1 eleccion
 
 	if [[ ${eleccion} -eq 0 ]];then
-		echo -e "\nEspero que te haya gustado"
+		echo -e "\n\nEspero que te haya gustado"
 		echo "PUNTUACIONES:"
 		echo "Maquina: $MAQUINA"
 		echo "Usuario: $USUARIO"
