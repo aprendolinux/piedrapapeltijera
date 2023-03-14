@@ -1,12 +1,14 @@
 #!/bin/bash
 
 
-valores=( piedra papel tijera )
+valores=( piedra papel tijera lagarto spock)
 
 declare -A REGLAS
-REGLAS=([piedra]=tijera 
-        [tijera]=papel
-	[papel]=piedra	
+REGLAS=([piedra]=tijera:lagarto
+        [tijera]=papel:lagarto
+	[papel]=piedra:spock	
+	[lagarto]=papel:spock
+	[spock]=piedra:tijeras
 	)
 
 USUARIO=0
@@ -18,6 +20,8 @@ eleccion_usuario(){
 	echo -e "\t1. Piedra"
 	echo -e "\t2. Papel"
 	echo -e "\t3. Tijera"
+	echo -e "\t4. Lagarto"
+	echo -e "\t5. Spock"
 	read -p "Introduce tu eleccion (0 para salir): " -n 1 eleccionUser
 	echo ""
 
@@ -41,7 +45,7 @@ eleccion_usuario(){
 		fi
 		echo -e "\nHasta luego!!"
 		exit 0
-	elif [[ ${eleccionUser} -gt 3 ]];then
+	elif [[ ${eleccionUser} -gt 5 ]];then
 		echo -e "\nERROR EN DATO INTRODUCIDO"
 		echo "Debes hacer una eleccion entre 1 y 3..."
 		echo ""
@@ -53,7 +57,7 @@ eleccion_usuario(){
 
 
 ganador(){
-	eleccion_maquina=$(($RANDOM%3))
+	eleccion_maquina=$(($RANDOM%5))
 	((eleccionUser--))
 	echo "Maquina: ${valores[$eleccion_maquina]}"
 	echo "Usuario: ${valores[$eleccionUser]}"
@@ -62,10 +66,17 @@ ganador(){
 		echo "Habéis elegido lo mismo..EMPATE!"
 		eleccion_usuario
 	else
-		if [[ ${REGLAS[${valores[$eleccionUser]}]} == ${valores[$eleccion_maquina]} ]];then
-			echo "Enhorabuena, has ganado!!"
-			USUARIO=$(($USUARIO + 1))
-		else
+		#set -x
+		export IFS=":"
+		ganaUser=0
+		for val in ${REGLAS[${valores[$eleccionUser]}]};do
+			if [[ $val == ${valores[$eleccion_maquina]} ]];then
+				ganaUser=1
+				echo "Enhorabuena, has ganado!!"
+				USUARIO=$(($USUARIO + 1))
+			fi
+		done
+		if [[ $ganaUser -eq 0 ]];then
 			echo "Que pena, has perdido.."
 			MAQUINA=$(($MAQUINA+ 1))
 		fi	
