@@ -66,17 +66,11 @@ ganador(){
 		echo "Habéis elegido lo mismo..EMPATE!"
 		eleccion_usuario
 	else
-		#set -x
-		export IFS=":"
-		ganaUser=0
-		for val in ${REGLAS[${valores[$eleccionUser]}]};do
-			if [[ $val == ${valores[$eleccion_maquina]} ]];then
-				ganaUser=1
-				echo "Enhorabuena, has ganado!!"
-				USUARIO=$(($USUARIO + 1))
-			fi
-		done
-		if [[ $ganaUser -eq 0 ]];then
+		if [[ ${REGLAS[${valores[$eleccionUser]}]} =~ ${valores[$eleccion_maquina]} ]];then
+			ganaUser=1
+			echo "Enhorabuena, has ganado!!"
+			USUARIO=$(($USUARIO + 1))
+		else
 			echo "Que pena, has perdido.."
 			MAQUINA=$(($MAQUINA+ 1))
 		fi	
