@@ -1,8 +1,13 @@
 #!/bin/bash
 
-PIEDRA=1
-PAPEL=2
-TIJERA=3
+
+valores=( piedra papel tijera )
+
+declare -A REGLAS
+REGLAS=([piedra]=tijera 
+        [tijera]=papel
+	[papel]=piedra	
+	)
 
 USUARIO=0
 MAQUINA=0
@@ -13,10 +18,10 @@ eleccion_usuario(){
 	echo -e "\t1. Piedra"
 	echo -e "\t2. Papel"
 	echo -e "\t3. Tijera"
-	read -p "Introduce tu eleccion (0 para salir): " -n 1 eleccion
+	read -p "Introduce tu eleccion (0 para salir): " -n 1 eleccionUser
 	echo ""
 
-	if [[ ${eleccion} -eq 0 ]];then
+	if [[ ${eleccionUser} -eq 0 ]];then
 		echo -e "\nEspero que te haya gustado"
 		echo "PUNTUACIONES:"
 		echo -e "\tMaquina: $MAQUINA"
@@ -36,83 +41,40 @@ eleccion_usuario(){
 		fi
 		echo -e "\nHasta luego!!"
 		exit 0
-	elif [[ ${eleccion} -gt 3 ]];then
+	elif [[ ${eleccionUser} -gt 3 ]];then
 		echo -e "\nERROR EN DATO INTRODUCIDO"
 		echo "Debes hacer una eleccion entre 1 y 3..."
 		echo ""
 		eleccion_usuario
 	
 	fi	
-	comprobacion_ganador
+	ganador
 }
 
-comprobacion_ganador(){
+
+ganador(){
 	eleccion_maquina=$(($RANDOM%3))
-	#eleccion_maquina=$(( $eleccion_maquina++ ))
-	((eleccion_maquina++))
-	#echo -e "\nLa maquina elige: " $eleccion_maquina
-	case $eleccion_maquina in
-		$PIEDRA)
-			echo -e "\nLa maquina elige Piedra"	
-			case $eleccion in
-				$PIEDRA) 
-					echo "El usuario ha elegido Piedra"	
-					echo "Empate, ambos habéis elegido piedra"
-					;;
-				$PAPEL)	echo "El usuario ha elegido Papel"
-					echo "Has ganado, papel envuelve a piedra"
-					USUARIO=$(($USUARIO + 1))
-					;;
-				$TIJERA)
-					echo "El usuario ha elegido Tijera"
-					echo "Has perdido, la piedra machaca las tijeras"
-					MAQUINA=$(($MAQUINA+ 1))
-					;;
-			esac
-			;;
-		$PAPEL)
-			echo -e "\nLa maquina elige Papel"	
-			case $eleccion in
-				$PIEDRA)
-					echo "El usuario ha elegido Piedra"	
-					echo "Has perdido, papel envuelve a piedra"
-					MAQUINA=$(($MAQUINA+ 1))
-					;;
-				$PAPEL)	echo "El usuario ha elegido Papel"
-					echo "Empate, ambos habéis elegido papel"
-					;;
-				$TIJERA)
-					echo "El usuario ha elegido Tijera"
-					echo "Has ganado, las tijeras cortan al papel"
-					USUARIO=$(($USUARIO + 1))
-					;;
-			esac
-			;;
-		$TIJERA)
-			echo -e "\nLa maquina elige Tijera"	
-			case $eleccion in
-				$PIEDRA)
-					echo "El usuario ha elegido Piedra"	
-					echo "Has ganado, la piedra machaca las tijeras"
-					USUARIO=$(($USUARIO + 1))
-					;;
-				$PAPEL)	echo "El usuario ha elegido Papel"
-					echo "Has perdido, las tijeras cortan al papel"
-					MAQUINA=$(($MAQUINA+ 1))
-					;;
-				$TIJERA)
-					echo "El usuario ha elegido Tijera"
-					echo "Empate, ambos habéis elegido tijeras"
-					;;
-			esac
-			;;
-
-
-
-	esac
+	((eleccionUser--))
+	echo "Maquina: ${valores[$eleccion_maquina]}"
+	echo "Usuario: ${valores[$eleccionUser]}"
+	#set -x
+	if [[ $eleccion_maquina -eq $eleccionUser ]];then
+		echo "Habéis elegido lo mismo..EMPATE!"
+		eleccion_usuario
+	else
+		if [[ ${REGLAS[${valores[$eleccionUser]}]} == ${valores[$eleccion_maquina]} ]];then
+			echo "Enhorabuena, has ganado!!"
+			USUARIO=$(($USUARIO + 1))
+		else
+			echo "Que pena, has perdido.."
+			MAQUINA=$(($MAQUINA+ 1))
+		fi	
+	fi
 	echo ""
 	echo "Otra partida!"
 	eleccion_usuario
+	#set +x
 }
+
 
 eleccion_usuario
